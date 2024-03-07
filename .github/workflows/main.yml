@@ -17,6 +17,7 @@ jobs:
         run: |
           docker build --platform=linux/amd64 -t processing.py.site:latest .
       - name: Run Docker container
+        continue-on-error: true #the failed generated images should be warnings instead of errors
         run: |
           docker run --rm -v ${{ github.workspace }}/generated:/processing.py.site/generated processing.py.site:latest
       - name: upload result
