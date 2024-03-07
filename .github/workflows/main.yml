@@ -16,7 +16,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
-          tags: processing.py/site:latest
+          tags: processing.py.site:latest
       - name: Run Docker container
         run: |
           docker run --rm -v ${{ github.workspace }}/generated:/processing.py.site/generated processing.py.site:latest
