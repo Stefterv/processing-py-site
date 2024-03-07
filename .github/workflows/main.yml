@@ -22,6 +22,9 @@ jobs:
         with:
             image: processing.py/site:latest
             options: -v ${{ github.workspace }}/generated:/processing.py.site/generated
+      - name: Run Docker container
+        run: |
+          docker run --rm -v ${{ github.workspace }}/generated:/processing.py.site/generated processing.py.site:latest
       - name: upload result
         uses: actions/upload-artifact@v4
         with:
