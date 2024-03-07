@@ -1,0 +1,29 @@
+name: build site
+
+on:
+  workflow_dispatch:
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Check out the repo
+        uses: actions/checkout@v2
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          tags: processing.py/site:latest
+      - name: Run the build process with Docker
+        uses: addnab/docker-run-action@v3
+        with:
+            image: processing.py/site:latest
+            options: -v ${{ github.workspace }}/generated:/processing.py.site/generated
+      - name: upload result
+        uses: actions/upload-artifact@v4
+        with:
+          name: website
+          path: ${{ github.workspace }}/generated
