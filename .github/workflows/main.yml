@@ -17,11 +17,6 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           tags: processing.py/site:latest
-      - name: Run the build process with Docker
-        uses: addnab/docker-run-action@v3
-        with:
-            image: processing.py/site:latest
-            options: -v ${{ github.workspace }}/generated:/processing.py.site/generated
       - name: Run Docker container
         run: |
           docker run --rm -v ${{ github.workspace }}/generated:/processing.py.site/generated processing.py.site:latest
